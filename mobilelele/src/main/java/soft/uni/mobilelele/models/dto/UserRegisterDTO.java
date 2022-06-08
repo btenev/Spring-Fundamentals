@@ -1,9 +1,28 @@
 package soft.uni.mobilelele.models.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class UserRegisterDTO {
+
+    @NotNull
+    @Email
     private String email;
+
+    @NotBlank
+    @Size(min = 2, max = 20)
     private String firstName;
+
+    @NotBlank
+    @Size(min = 2, max = 20)
     private String lastName;
+
+    @NotBlank
+    @Size(min = 5)
     private String password;
     private String confirmPassword;
 
