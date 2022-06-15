@@ -31,8 +31,5 @@ public class CategoryEntity extends BaseEntity {
         this.neededTime = neededTime;
     }
 
-    //	The needed time for a Drink is 1 min.
-    //	The needed time for Coffee is 2 min.
-    //	The needed time for an Other is 5 min.
-    //	The needed time for a Cake is 10 min.
+
 }

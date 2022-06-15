@@ -36,4 +36,8 @@ public class CategoryService {
                     this.categoryRepository.save(category);
                 });
     }
+
+    public CategoryEntity findByNameEnum(NameEnum category) {
+        return this.categoryRepository.findByName(category).orElse(null);
+    }
 }

@@ -5,6 +5,4 @@ public enum NameEnum {
     CAKE,
     DRINK,
     OTHER
-
-
 }
