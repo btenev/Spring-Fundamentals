@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import soft.uni.mobilelele.models.dto.UserLoginDTO;
 import soft.uni.mobilelele.models.dto.UserRegisterDTO;
 import soft.uni.mobilelele.models.entity.UserEntity;
+import soft.uni.mobilelele.models.mapper.UserMapper;
 import soft.uni.mobilelele.repository.UserRepository;
 import soft.uni.mobilelele.user.CurrentUser;
 
@@ -18,25 +19,24 @@ public class UserService {
     private final UserRepository userRepository;
     private final CurrentUser currentUser;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
     private final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-    public UserService(UserRepository userRepository, CurrentUser currentUser, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, CurrentUser currentUser,
+                       PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.currentUser = currentUser;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
-    public void RegisterAndLogin(UserRegisterDTO userRegisterDTO) {
-        UserEntity newUser =
-                new UserEntity()
-                        .setActive(true)
-                        .setEmail(userRegisterDTO.getEmail())
-                        .setFirstName(userRegisterDTO.getFirstName())
-                        .setLastName(userRegisterDTO.getLastName())
+    public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
+        UserEntity newUser = userMapper
+                        .userDtoToUserEntity(userRegisterDTO)
                         .setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 
-       newUser = this.userRepository.save(newUser);
+       this.userRepository.save(newUser);
 
        login(newUser);
     }
